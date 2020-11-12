@@ -1,0 +1,31 @@
+{
+    "name": "mujhtech/varspay-tech",
+    "description": "PHP API Library for varspay service",
+    "keywords": ["laravel", "varspay", "php", "payment", "api", "library"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mujhtech",
+            "email": "mujeeb.muhideen@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {"Mujhtech\\Varspay\\": "src/"}
+    },
+    "require": {
+        "laravel/framework": ">=6.0",
+        "php": ">=7.2.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mujhtech\\Varspay\\VarspayServiceProvider"
+            ],
+            "aliases": {
+                "Paystack": "Mujhtech\\Varspay\\Facades\\Varspay"
+            }
+        }
+    }
+}
