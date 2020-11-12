@@ -21,5 +21,5 @@ return [
     |
     */
 
-    'apiKey' => getenv('VARSPAY_PUBLIC_KEY'),
+    'apiKey' => getenv('VARSPAY_API_KEY'),
 ];
