@@ -34,13 +34,20 @@ class Varspay {
     
 
     /**
+     * Set api key
 	 * @param string $apiKey API Public Key
-	 * @return APIClient
+	 * @return 
 	 */
 	public function setApiKey() {
 		$this->apiKey = Config::get('varspay-tech.apiKey');
-		return $this;
     }
+
+
+    /**
+     * Fetch your current balance
+     * @param 
+     * @return array
+     */
 
 
     public function getBalance(){
@@ -52,6 +59,13 @@ class Varspay {
     }
 
 
+    /**
+     * Fetch all information about yourself
+     * @param
+     * @return array
+     */
+
+
     public function getMe(){
 
         $result = $this->request('me', [], 'POST');
@@ -59,6 +73,13 @@ class Varspay {
         return $result;
 
     }
+
+
+    /**
+     * Fetch all alerts 
+     * @param $acctNo
+     * @return array
+     */
 
 
     public function getAlerts($acctNo){
@@ -70,6 +91,13 @@ class Varspay {
     }
 
 
+    /**
+     * Retrieve Account Number
+     * @param $email
+     * @return array
+     */
+
+
     public function retrieveAccountNumber($email){
 
         $result = $this->request('user/nuban', ['userEmail' => $email], 'POST');
@@ -77,6 +105,13 @@ class Varspay {
         return $result;
 
     }
+
+
+    /**
+     * Change transaction pin
+     * @param $email, $pin
+     * @return array
+     */
 
 
     public function changePin($email, $pin){
@@ -87,15 +122,26 @@ class Varspay {
 
     }
 
+    /**
+     * Change password
+     * @param $email, $password
+     * @return array
+     */
 
+    public function changePassword($email, $password){
 
-    public function changePassword($email, $pin){
-
-        $result = $this->request('user/password', ['email' => $email, 'newPassword' => $pin], 'POST');
+        $result = $this->request('user/password', ['email' => $email, 'newPassword' => $password], 'POST');
 
         return $result;
 
     }
+
+
+    /**
+     * Fetch list of available banks
+     * @param
+     * @return array
+     */
 
     public function bankList(){
 
@@ -106,6 +152,13 @@ class Varspay {
     }
 
 
+    /**
+     * Fetch information about bvn (Note: This cost 25 per call)
+     * @param $bvn
+     * @return array
+     */
+
+
     public function resolveBvn($bvn){
 
         $result = $this->request('resolve-bvn', ['bvn' => $bvn], 'POST');
@@ -113,6 +166,13 @@ class Varspay {
         return $result;
 
     }
+
+
+    /**
+     * Fetch information about an account
+     * @param $acctNo, $bankCode
+     * @return array
+     */
 
 
     public function resolveAccount($acctNo, $bankCode){
@@ -127,6 +187,13 @@ class Varspay {
     }
 
 
+    /**
+     * Create a virtual account
+     * @param $acctName
+     * @return array
+     */
+
+
     public function createVirtualAccount($acctName){
 
         $result = $this->request('createvirtualaccount', [
@@ -137,6 +204,12 @@ class Varspay {
 
     }
 
+    /**
+     * Fetch all virtual accounts
+     * @param 
+     * @return array
+     */
+
 
     public function getAllVirtualAccount(){
 
@@ -145,6 +218,12 @@ class Varspay {
         return $result;
 
     }
+
+    /**
+     * Fetch all transaction on a specific virtual account
+     * @param $acctNo
+     * @return array
+     */
 
 
     public function getVirtualAccountTransaction($acctNo){
@@ -157,6 +236,11 @@ class Varspay {
 
     }
 
+    /**
+     * Single transfer to varspay account
+     * @param $amount, $email
+     * @return array
+     */
 
     public function transferToVarspay($amount, $email){
 
@@ -169,6 +253,11 @@ class Varspay {
 
     }
 
+    /**
+     * Single transfer to other bank
+     * @param $amount, $bankCode, $description, $acctNo, $acctName
+     * @return array
+     */
 
     public function transferToOtherBank($amount, $bankCode, $description, $acctNo, $acctName){
 
@@ -184,6 +273,12 @@ class Varspay {
 
     }
 
+    /**
+     * Bulk transfer to other bank
+     * @param $bulk multidimensional array
+     * @return array
+     */
+
     public function transferToOtherBankBulk($bulk){
 
         $result = $this->request('transfer/other/bulk', [
@@ -193,6 +288,12 @@ class Varspay {
         return $result;
 
     }
+
+    /**
+     * Query single transfer transaction
+     * @param subaccount code
+     * @return array
+     */
 
 
     public function getSingleTransferDetails($ref){
@@ -204,6 +305,12 @@ class Varspay {
     }
 
 
+    /**
+     * Queries bulk transfer transaction
+     * @param $ref code
+     * @return array
+     */
+
     public function getBulkTransferDetails($ref){
 
         $result = $this->request('transfer/details/bulk?batchReference='.$ref, [], 'GET');
@@ -213,6 +320,12 @@ class Varspay {
     }
 
 
+    /**
+     * Fetch airtime provider
+     * @param 
+     * @return array
+     */
+
 
     public function airtimeProviders(){
 
@@ -221,6 +334,13 @@ class Varspay {
         return $result;
 
     }
+
+
+    /**
+     * Purchase an airtime
+     * @param $amount, $phone, $provider code
+     * @return array
+     */
 
 
     public function airtimePurchase($amount, $phone, $provider){
@@ -235,6 +355,11 @@ class Varspay {
 
     }
 
+    /**
+     * Fetch airtime transaction queires
+     * @param $ref code
+     * @return array
+     */
 
     public function airtimeQueris($ref){
 
@@ -246,7 +371,11 @@ class Varspay {
 
     }
 
-
+    /**
+     * List of airtim swap providers
+     * 
+     * @return array
+     */
 
     public function airtimeSwapProviders(){
 
@@ -255,6 +384,12 @@ class Varspay {
         return $result;
 
     }
+
+    /**
+     * create an airtimeswap transaction
+     * @param $amount, $phone, $provider code
+     * @return array
+     */
 
     public function airtimeSwap($amount, $phone, $provider){
 
@@ -299,12 +434,14 @@ class Varspay {
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => $data,
             CURLOPT_HTTPHEADER => array(
                 "Accept: application/json",
                 "Content-Type: application/json",
-                "Authorization: Bearer ".$this->api_key
+                "Authorization: Bearer ".$this->apiKey
             ),
             ));
             
@@ -331,11 +468,13 @@ class Varspay {
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
                 "Accept: application/json",
                 "Content-Type: application/json",
-                "Authorization: Bearer ".$this->api_key
+                "Authorization: Bearer ".$this->apiKey
             ),
             ));
 

@@ -13,6 +13,7 @@
 namespace Mujhtech\Varspay;
 
 use Illuminate\Support\ServiceProvider;
+use Mujhtech\Varspay\Console\VarspayInstallCommand;
 
 
 class VarspayServiceProvider extends ServiceProvider
@@ -23,7 +24,6 @@ class VarspayServiceProvider extends ServiceProvider
     *
     * @var bool
     */
-    protected $defer = false;
 
 
     /**
@@ -34,7 +34,7 @@ class VarspayServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        $this->app->bind('laravel-varspay', function () {
+        $this->app->bind('laravel-varspay', function ($app) {
 
             return new Varspay;
 
@@ -52,6 +52,7 @@ class VarspayServiceProvider extends ServiceProvider
         $this->publishes([
             $config => config_path('varspay-tech.php')
         ]);
+        $this->registerCommands();
     }
 
 
@@ -63,6 +64,14 @@ class VarspayServiceProvider extends ServiceProvider
     public function provides()
     {
         return ['laravel-varspay'];
+    }
+
+
+    private function registerCommands()
+    {
+        $this->commands([
+            VarspayInstallCommand::class,
+        ]);
     }
 
 }
