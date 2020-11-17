@@ -275,7 +275,7 @@ class Varspay {
 
     /**
      * Bulk transfer to other bank
-     * @param $bulk multidimensional array
+     * @param $bulk = [ array( "amount" => "100", "narration" => "Test Transfer", "accountname" => "OLUCHI AMARA", "bankname" => "ECOBANK", "accountnumber" => "8883116789", "bankcode"=> "000010"), array( "amount" => "100", "narration" => "Test Transfer", "accountname" => "OLUCHI AMARA", "bankname" => "ECOBANK", "accountnumber" => "8883116789", "bankcode"=> "000010") ]
      * @return array
      */
 
